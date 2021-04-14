@@ -7,10 +7,9 @@ screen = pygame.display.set_mode((600, 600))
 
 board = pygame.image.load('Chess Board.jpg')
 
-dark  = pygame.image.load('square_dark.jpg')
+dark = pygame.image.load('square_dark.jpg')
 light = pygame.image.load('square_light.jpg')
-dot   = pygame.image.load('dot.png')
-
+dot = pygame.image.load('dot.png')
 
 
 bb = pygame.image.load('bb.png')
@@ -36,10 +35,10 @@ TOKENS = [[br, bn, bb, bq, bk, bb, bn, br],
 HOME = [[[33 + (67*i), 33 + (67*j)] for i in range(8)] for j in range(2)] + \
        [[[33 + (67*i), 33 + (67*(6+j))] for i in range(8)] for j in range(2)]
 
-dot_coordinates=[]
+dot_coordinates = []
 
 position = HOME
-position[2].append([100,234])
+position[2].append([100, 234])
 
 
 X = 8
@@ -63,28 +62,28 @@ while running:
         if event.type == pygame.MOUSEBUTTONUP:
             CHANGED = False
             coordinates = pygame.mouse.get_pos()
-            flag=False
+            flag = False
             for i in dot_coordinates:
-                if i[0]<=coordinates[0]<=i[0]+67 and i[1]<=coordinates[1]<=i[1]+67:
-                    flag=True
+                if i[0] <= coordinates[0] <= i[0]+67 and i[1] <= coordinates[1] <= i[1]+67:
+                    flag = True
                     for j in range(len(position)):
                         for k in range(len(position[j])):
-                            if i == position[j][k] :
-                                position[j][k]=[1000,1000]
-                                
-                                
+                            if i == position[j][k]:
+                                position[j][k] = [1000, 1000]
                                 break
-                    position[X][Y]=i 
+
+                    position[X][Y] = i
                     X = 8
                     Y = 8
-                    dot_coordinates=[]
+                    dot_coordinates = []
+                    break
 
             if not flag:
                 for i in range(len(position)):
                     for j in range(len(position[i])):
                         if position[i][j][0] <= coordinates[0] <= position[i][j][0] + 67 \
-                        and position[i][j][1] <= coordinates[1] <= position[i][j][1] + 67:
-                            dot_coordinates=[]
+                            and position[i][j][1] <= coordinates[1] <= position[i][j][1] + 67:
+                            dot_coordinates = []
                             X = i
                             Y = j
                             CHANGED = True
@@ -93,17 +92,13 @@ while running:
                 X = 8
                 Y = 8
 
-                                
-                                
-    
-    
     for i in range(len(position)):
         for j in range(len(position[i])):
             screen.blit(TOKENS[i][j], position[i][j])
 
-    if dot_coordinates==[]:
-        show_position(X,Y,position,screen,dot_coordinates)
+    if dot_coordinates == []:
+        show_position(X, Y, position, screen, dot_coordinates)
     else:
         for i in dot_coordinates:
-            screen.blit(dot,i)
+            screen.blit(dot, i)
     pygame.display.update()
