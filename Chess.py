@@ -97,7 +97,7 @@ while running:
             screen.blit(TOKENS[i][j], position[i][j])
 
     if dot_coordinates == []:
-        show_position(X, Y, position, screen, dot_coordinates)
+        show_position(X, Y, position, dot_coordinates)
     else:
         for i in dot_coordinates:
             screen.blit(dot, i)
