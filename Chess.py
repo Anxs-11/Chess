@@ -1,6 +1,8 @@
 import pygame
 from showPositions import *
 
+
+
 pygame.init()
 pygame.display.set_caption("Chess")
 screen = pygame.display.set_mode((600, 600))
@@ -28,7 +30,7 @@ wr = pygame.image.load('wr.png')
 
 TOKENS = [[br, bn, bb, bq, bk, bb, bn, br],
           [bp] * 8,
-          [wp] * 9,
+          [wp] * 8,
           [wr, wn, wb, wq, wk, wb, wn, wr]]
 
 
@@ -38,8 +40,9 @@ HOME = [[[33 + (67*i), 33 + (67*j)] for i in range(8)] for j in range(2)] + \
 dot_coordinates = []
 
 position = HOME
-position[2].append([100, 234])
 
+
+currentPlayer=0
 
 X = 8
 Y = 8
@@ -76,6 +79,7 @@ while running:
                     X = 8
                     Y = 8
                     dot_coordinates = []
+                    currentPlayer=(currentPlayer+1)%2
                     break
 
             if not flag:
@@ -91,12 +95,13 @@ while running:
             if not CHANGED:
                 X = 8
                 Y = 8
+                dot_coordinates=[]
 
     for i in range(len(position)):
         for j in range(len(position[i])):
             screen.blit(TOKENS[i][j], position[i][j])
 
-    if dot_coordinates == []:
+    if dot_coordinates == [] and ((currentPlayer==1 and (X==0 or X==1)) or (currentPlayer==0 and (X==2 or X==3))):
         show_position(X, Y, position, dot_coordinates)
     else:
         for i in dot_coordinates:
